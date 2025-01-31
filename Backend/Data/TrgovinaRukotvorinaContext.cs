@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
-    public class TrgovinaRukotvorinaContext
+    public class TrgovinaRukotvorinaContext : DbContext
     {
         public TrgovinaRukotvorinaContext(DbContextOptions<TrgovinaRukotvorinaContext> options) : base(options)
         {
@@ -12,5 +13,6 @@ namespace Backend.Data
         public DbSet<Proizvod> Proizvodi { get; set; }
     }
 
+    
     
 }
