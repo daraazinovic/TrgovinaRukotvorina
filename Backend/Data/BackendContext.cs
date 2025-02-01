@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
-    public class TrgovinaRukotvorinaContext : DbContext
+    public class BackendContext : DbContext
     {
-        public TrgovinaRukotvorinaContext(DbContextOptions<TrgovinaRukotvorinaContext> options) : base(options)
+        public BackendContext(DbContextOptions<BackendContext> options) : base(options)
         {
 
         }

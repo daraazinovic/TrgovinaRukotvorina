@@ -1,5 +1,11 @@
-
+using Backend;
+using Backend.Data;
 using Microsoft.EntityFrameworkCore;
+
+
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +18,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<TrgovinaRukotvorinaContext>(options =>{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TrgovinaRukotvorinaContext"));
+builder.Services.AddDbContext<BackendContext>(options => {options.UseSqlServer(builder.Configuration.GetConnectionString("BackendContext"));
 });
-
-
 
 
 
@@ -32,7 +35,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseSwagger();
-app.UseSwaggerUI(o => {
+app.UseSwaggerUI(o =>
+{
     o.EnableTryItOutByDefault();
     o.ConfigObject.AdditionalItems.Add("requestSnippetsEnabled", true);
 });
@@ -42,3 +46,4 @@ app.UseSwaggerUI(o => {
 app.MapControllers();
 
 app.Run();
+
