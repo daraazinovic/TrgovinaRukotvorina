@@ -22,7 +22,13 @@ builder.Services.AddDbContext<BackendContext>(options => {options.UseSqlServer(b
 });
 
 
-
+builder.Services.AddCors(o=>
+{
+    o.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
 
 
 var app = builder.Build();
@@ -44,6 +50,6 @@ app.UseSwaggerUI(o =>
 
 
 app.MapControllers();
-
+app.UseCors("CorsPolicy");
 app.Run();
 

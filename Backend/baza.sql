@@ -1,12 +1,18 @@
-use master
+-- Zamjeniti db_a98acf_edunovawp5 s imenom svoje baze
 
-go
-drop database if exists trgovinarukotvorina;
-go
-create database trgovinarukotvorina collate Croatian_CI_AS;
-go
-use trgovinarukotvorina;
-go
+SELECT name, collation_name FROM sys.databases;
+GO
+ALTER DATABASE db_ab2677_trgovinarukotvorin SET SINGLE_USER WITH
+ROLLBACK IMMEDIATE;
+GO
+ALTER DATABASE db_ab2677_trgovinarukotvorin COLLATE Croatian_CI_AS;
+GO
+ALTER DATABASE db_ab2677_trgovinarukotvorin SET MULTI_USER;
+GO
+SELECT name, collation_name FROM sys.databases;
+GO
+
+
 
 create table proizvodi(
 sifra int not null primary key identity(1,1),
