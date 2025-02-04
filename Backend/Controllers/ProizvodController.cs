@@ -3,12 +3,12 @@ using Backend.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Conterollers
+namespace Backend.Controllers
 {
 
 
     [ApiController]
-    [Route("api/v1[controller]")]
+    [Route("api/v1/[controller]")]
 
     public class ProizvodController : ControllerBase
     {

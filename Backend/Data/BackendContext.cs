@@ -11,6 +11,7 @@ namespace Backend.Data
         }
         
         public DbSet<Proizvod> Proizvodi { get; set; }
+        public DbSet<Materijali> Materijali { get; set; }
     }
 
     
