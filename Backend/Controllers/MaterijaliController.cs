@@ -11,7 +11,7 @@ namespace Backend.Controllers
     {
         private readonly BackendContext _context;
 
-        public MaterijaliController(BackendContext context)
+        public  MaterijaliController(BackendContext context)
         {
             _context = context;
         }
@@ -60,7 +60,7 @@ namespace Backend.Controllers
             {
                 _context.Materijali.Add(materijal);
                 _context.SaveChanges();
-                return Ok();
+                return StatusCode(StatusCodes.Status201Created, materijal);
             }
             catch (Exception e)
             {
