@@ -2,12 +2,12 @@
 
 SELECT name, collation_name FROM sys.databases;
 GO
-ALTER DATABASE db_ab2677_trgovinarukotvorin SET SINGLE_USER WITH
+ALTER DATABASE db_ab2831_trgovinarukotvorin SET SINGLE_USER WITH
 ROLLBACK IMMEDIATE;
 GO
-ALTER DATABASE db_ab2677_trgovinarukotvorin COLLATE Croatian_CI_AS;
+ALTER DATABASE db_ab2831_trgovinarukotvorin COLLATE Croatian_CI_AS;
 GO
-ALTER DATABASE db_ab2677_trgovinarukotvorin SET MULTI_USER;
+ALTER DATABASE db_ab2831_trgovinarukotvorin SET MULTI_USER;
 GO
 SELECT name, collation_name FROM sys.databases;
 GO
