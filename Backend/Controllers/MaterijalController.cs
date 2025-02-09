@@ -7,11 +7,11 @@ namespace Backend.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class MaterijaliController : ControllerBase
+    public class MaterijalController : ControllerBase
     {
         private readonly BackendContext _context;
 
-        public  MaterijaliController(BackendContext context)
+        public  MaterijalController(BackendContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace Backend.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(Materijali materijal)
+        public IActionResult Post(Materijal materijal)
         {
             try
             {
@@ -72,18 +72,24 @@ namespace Backend.Controllers
         [HttpPut]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int sifra, Materijali materijal)
+        public IActionResult Put(int sifra, Materijal materijal)
         {
-            var m = _context.Materijali.Find(sifra);
-            if (m == null)
-            {
-                return NotFound();
-            }
-
             try
             {
-                m.Naziv = materijal.Naziv;
-                m.Vrsta = materijal.Vrsta;
+
+                var s = _context.Materijali.Find(sifra);
+
+                if (s == null)
+                {
+                    return NotFound();
+                }
+
+                // Rucno mapiranje, kasnije automapper
+                s.Naziv = materijal.Naziv;
+                s.Vrsta = materijal.Vrsta;
+               
+
+                _context.Materijali.Update(s);
                 _context.SaveChanges();
                 return Ok(new { poruka = "Uspješno promijenjeno" });
             }

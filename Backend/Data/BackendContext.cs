@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace Backend.Data
 {
@@ -9,11 +10,15 @@ namespace Backend.Data
         {
 
         }
-        
-        public DbSet<Proizvod> Proizvodi { get; set; }
-        public DbSet<Materijali> Materijali { get; set; }
-    }
 
-    
-    
+        public DbSet<Proizvod> Proizvodi { get; set; }
+        public DbSet<Materijal> Materijali { get; set; }
+        public DbSet<Vrsta> Vrste { get; set; }
+
+
+
+
+
+
+    }
 }

@@ -1,9 +1,9 @@
 ﻿namespace Backend.Models
 {
-    public class Materijali : Entitet
+    public class Materijal : Entitet
     {
         public string Naziv { get; set; } = "";
-        public string Vrsta { get; set; } = "";
+        public int Vrsta { get; set; } 
       
     }
 }
