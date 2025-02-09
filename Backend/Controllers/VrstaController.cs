@@ -3,16 +3,18 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
+
 {
-    public class VrstaController
+    [ApiController]
+    [Route("api/v1/[controller]")]
+    public class VrstaController : ControllerBase
     {
-        [ApiController]
-        [Route("api/v1/[controller]")]
-        public class VrsteController : ControllerBase
-        {
+      
+       
+        
             private readonly BackendContext _context;
 
-            public VrsteController(BackendContext context)
+            public VrstaController(BackendContext context)
             {
                 _context = context;
             }
@@ -122,6 +124,6 @@ namespace Backend.Controllers
                 }
             }
 
-        }
+        
     }
 }
