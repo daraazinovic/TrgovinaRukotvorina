@@ -29,6 +29,7 @@ export default function NavBarEdunova(){
                         >Proizvodi</NavDropdown.Item>
                        
                         </NavDropdown>
+                        <Nav.Link href ='https://darko0210-001-site1.otempurl.com/swagger' target='_blank'>Swagger</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import ProizvodService from "../../../services/ProizvodService"
 import { Table } from "react-bootstrap";
+import { NumericFormat } from "react-number-format";
+import { Link } from "react-router-dom";
+import { RouteNames } from "../../../constant";
 
 export default function ProizvodiPregled(){
 
@@ -22,8 +25,14 @@ export default function ProizvodiPregled(){
     },[])
 
 
+    
+
     return(
         <>
+        <Link
+        to={RouteNames.PROIZVOD_NOVI}
+        className="btn btn-success"
+        >Dodaj novi proizvod</Link>
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
@@ -44,9 +53,25 @@ export default function ProizvodiPregled(){
                         <td>
                             {proizvod.izradujeSeOd}
                         </td>
-                        <td>
-                            {proizvod.cijena}
-                        </td>
+                        
+                            
+                            
+                        
+                        <td className={proizvod.cijena==null ? 'sredina' : 'desno'}>
+                            
+                            {proizvod.cijena==null ? 'Nije definirano ' :
+
+                            <NumericFormat
+                            value={proizvod.cijena}
+                            displayType={'text'}
+                            thousandSeparator=','
+                            prefix="€"
+                            decimalScale={2}
+                            fixedDecimalScale
+                        />
+
+                            }
+</td>
                         <td>
                             {proizvod.namjena}
                         </td>
