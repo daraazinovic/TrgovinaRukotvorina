@@ -7,6 +7,7 @@ import { RouteNames } from './constant'
 import Pocetna from './components/pages/Pocetna'
 import ProizvodiPregled from './components/pages/proizvodi/ProizvodiPregled'
 import ProizvodiDodaj from './components/pages/proizvodi/ProizvodiDodaj'
+import ProivodiPromjena from './components/pages/proizvodi/ProizvodiPromjena'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path={RouteNames.HOME} element={<Pocetna />} />
           <Route path={RouteNames.PROIZVOD_PREGLED} element={<ProizvodiPregled />} />
           <Route path={RouteNames.PROIZVOD_NOVI} element={<ProizvodiDodaj />} />
+          <Route path={RouteNames.PROIZVOD_PROMJENA} element={<ProivodiPromjena />} />
         </Routes>
 
         <hr />

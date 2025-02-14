@@ -1,16 +1,29 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../../constant";
 import ProizvodService from "../../../services/ProizvodService";
+import { useEffect, useState } from "react";
 
-
-export default function ProivodiDodaj(){
+export default function ProivodiPromjena(){
 
     const navigate = useNavigate();
+    const [proizvod,setProizvod] =useState();
+    const routeParams = useParams();
+
+    async function  dohvatiProizvod(){
+        const odgovor = await ProizvodService.getBySifra(routeParams.sifra)
+        setProizvod(odgovor)
+    }
+
+    useEffect(()=>{
+        dohvatiProizvod();
+    },[])
+        
+    
 
 
     async function dodaj(proizvod){
-        const odgovor =await ProizvodService.dodaj(proizvod);
+        const odgovor = ProizvodService.dodaj(proizvod);
         if(odgovor.greska){
             alert(odgovor.poruka)
             return
@@ -46,22 +59,22 @@ export default function ProivodiDodaj(){
         Dodavanje proizvoda
         <Form onSubmit={odradiSubmit}>
 
-        <Form.Group controlid="naziv">
+        <Form.Group controllid="naziv">
                 <Form.Label>Naziv</Form.Label>
                 <Form.Control type="text" name="naziv" required />
             </Form.Group>
 
-            <Form.Group controlid="cijena">
+            <Form.Group controllid="cijena">
                 <Form.Label>Cijena</Form.Label>
                 <Form.Control type="number" name="cijena" required />
             </Form.Group>
 
-            <Form.Group controlid="izradujeSeOd">
+            <Form.Group controllid="izradujeSeOd">
                 <Form.Label>Izrađuje se od</Form.Label>
                 <Form.Control type="text" name="izradujeSeOd" required />
             </Form.Group>
 
-            <Form.Group controlid="namjena">
+            <Form.Group controllid="namjena">
                 <Form.Label>Namjena</Form.Label>
                 <Form.Control type="text" name="namjena" required />
             </Form.Group>

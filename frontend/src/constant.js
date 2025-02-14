@@ -2,7 +2,8 @@ export const RouteNames={
     HOME: '/',
 
     PROIZVOD_PREGLED: '/proizvodi',
-    PROIZVOD_NOVI: '/proizvodi/dodaj'
+    PROIZVOD_NOVI: '/proizvodi/dodaj',
+    PROIZVOD_PROMJENA: '/proizvodi/:sifra'
 }
 
 
