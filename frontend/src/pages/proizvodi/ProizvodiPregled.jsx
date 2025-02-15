@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import ProizvodService from "../../../services/ProizvodService"
+import ProizvodService from "../../services/ProizvodService"
 import { Button, Table } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
 import { Link, useNavigate } from "react-router-dom";
-import { RouteNames } from "../../../constant";
+import { RouteNames } from "../../constant";
 
 export default function ProizvodiPregled(){
 
     const[proizvodi, setProizvodi] = useState();
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
     async function dohvatiProizvode(){
         const odgovor = await ProizvodService.get()
@@ -79,7 +79,7 @@ export default function ProizvodiPregled(){
                         </td>
                         <td>
                             <Button
-                            onClick={()=>navigate('/proizvodi/$(proizvod.sifra}')}
+                            onClick={()=>navigate(`/proizvodi/${proizvod.sifra}`)}
                             >Promjena</Button>
                         </td>
                     </tr>

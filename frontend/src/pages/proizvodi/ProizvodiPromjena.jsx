@@ -1,13 +1,13 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { RouteNames } from "../../../constant";
-import ProizvodService from "../../../services/ProizvodService";
+import { RouteNames } from "../../constant";
+import ProizvodService from "../../services/ProizvodService";
 import { useEffect, useState } from "react";
 
 export default function ProivodiPromjena(){
 
     const navigate = useNavigate();
-    const [proizvod,setProizvod] =useState();
+    const [proizvod,setProizvod] =useState({});
     const routeParams = useParams();
 
     async function  dohvatiProizvod(){
@@ -23,7 +23,7 @@ export default function ProivodiPromjena(){
 
 
     async function dodaj(proizvod){
-        const odgovor = ProizvodService.dodaj(proizvod);
+        const odgovor = await ProizvodService.dodaj(proizvod);
         if(odgovor.greska){
             alert(odgovor.poruka)
             return
@@ -61,22 +61,22 @@ export default function ProivodiPromjena(){
 
         <Form.Group controllid="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required />
+                <Form.Control type="text" name="naziv" required defaultValue={proizvod.naziv}/>
             </Form.Group>
 
             <Form.Group controllid="cijena">
                 <Form.Label>Cijena</Form.Label>
-                <Form.Control type="number" name="cijena" required />
+                <Form.Control type="number" name="cijena" required  defaultValue={proizvod.cijena}/>
             </Form.Group>
 
             <Form.Group controllid="izradujeSeOd">
                 <Form.Label>Izrađuje se od</Form.Label>
-                <Form.Control type="text" name="izradujeSeOd" required />
+                <Form.Control type="text" name="izradujeSeOd" required  defaultValue={proizvod.izradujeSeOd}/>
             </Form.Group>
 
             <Form.Group controllid="namjena">
                 <Form.Label>Namjena</Form.Label>
-                <Form.Control type="text" name="namjena" required />
+                <Form.Control type="text" name="namjena" required defaultValue={proizvod.namjena}/>
             </Form.Group>
 
 

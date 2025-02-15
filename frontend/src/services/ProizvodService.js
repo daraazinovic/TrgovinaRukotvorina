@@ -13,7 +13,7 @@ async function get(){
 
 
 async function getBySifra(sifra){
-    return await HttpService.get('Proizvod/' + sifra)
+    return await HttpService.get('/Proizvod/' + sifra)
     .then((odgovor)=>{
        // console.table(odgovor.data)
        return odgovor.data;

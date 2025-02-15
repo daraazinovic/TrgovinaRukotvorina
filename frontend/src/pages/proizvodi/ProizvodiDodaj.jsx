@@ -1,7 +1,7 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { RouteNames } from "../../../constant";
-import ProizvodService from "../../../services/ProizvodService";
+import { RouteNames } from "../../constant";
+import ProizvodService from "../../services/ProizvodService";
 
 
 export default function ProivodiDodaj(){

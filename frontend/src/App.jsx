@@ -4,10 +4,10 @@ import { Container } from 'react-bootstrap'
 import NavBarEdunova from './components/NavBarEdunova'
 import { Route, Routes } from 'react-router-dom'
 import { RouteNames } from './constant'
-import Pocetna from './components/pages/Pocetna'
-import ProizvodiPregled from './components/pages/proizvodi/ProizvodiPregled'
-import ProizvodiDodaj from './components/pages/proizvodi/ProizvodiDodaj'
-import ProivodiPromjena from './components/pages/proizvodi/ProizvodiPromjena'
+import Pocetna from './pages/Pocetna'
+import ProizvodiPregled from './pages/proizvodi/ProizvodiPregled'
+import ProizvodiDodaj from './pages/proizvodi/ProizvodiDodaj'
+import ProivodiPromjena from './pages/proizvodi/ProizvodiPromjena'
 
 function App() {
 
