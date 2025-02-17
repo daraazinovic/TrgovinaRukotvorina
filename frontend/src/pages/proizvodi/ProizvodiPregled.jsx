@@ -25,7 +25,21 @@ export default function ProizvodiPregled(){
         dohvatiProizvode()
     },[])
 
+function obrisi(sifra){
+    if(!confirm('Sigurno obrisati')){
+        return;
+    }
+    brisanjeProizvoda(sifra);
+}
 
+async function brisanjeProizvoda(sifra) {
+    const odgovor =await ProizvodService.obrisi(sifra);
+    if(odgovor.greska){
+        alert(odgovor.poruka)
+        return
+    }
+    dohvatiProizvode()
+}
     
 
     return(
@@ -81,6 +95,12 @@ export default function ProizvodiPregled(){
                             <Button
                             onClick={()=>navigate(`/proizvodi/${proizvod.sifra}`)}
                             >Promjena</Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button
+                            variant="danger"
+                            onClick={()=>obrisi(proizvod.sifra)}
+                            >Obrisi</Button>
+
                         </td>
                     </tr>
                 ))}

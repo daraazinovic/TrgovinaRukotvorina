@@ -31,9 +31,28 @@ async function dodaj(proizvod){
 }
 
 
+async function promjena(sifra,proizvod){
+    return HttpService.put('/Proizvod/'+sifra,proizvod)
+    .then(()=>{return {greska: false, poruka: 'Promjenjeno'}})
+    .catch(()=>{return {greska: true, poruka:'Problem kod promjene'}})
+
+}
+
+
+async function obrisi(sifra){
+    return HttpService.delete('/Proizvod/'+sifra)
+    .then(()=>{return {greska: false, poruka: 'Obrisano'}})
+    .catch(()=>{return {greska: true, poruka:'Problem kod brisanja'}})
+
+}
+
+
+
 export default{
     get,
     getBySifra,
-    dodaj
+    dodaj,
+    promjena,
+    obrisi
 }
     

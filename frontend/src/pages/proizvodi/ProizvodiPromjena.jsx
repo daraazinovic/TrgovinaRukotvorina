@@ -22,8 +22,8 @@ export default function ProivodiPromjena(){
     
 
 
-    async function dodaj(proizvod){
-        const odgovor = await ProizvodService.dodaj(proizvod);
+    async function promjena(proizvod){
+        const odgovor = await ProizvodService.promjena(routeParams.sifra,proizvod);
         if(odgovor.greska){
             alert(odgovor.poruka)
             return
@@ -36,7 +36,7 @@ export default function ProivodiPromjena(){
 
          let podaci = new FormData(e.target);
 
-         dodaj(
+         promjena(
              {
             naziv: podaci.get('naziv'),
             izradujeSeOd: podaci.get('izradujeSeOd'),
@@ -56,7 +56,7 @@ export default function ProivodiPromjena(){
 
     return(
         <>
-        Dodavanje proizvoda
+        Promjena proizvoda
         <Form onSubmit={odradiSubmit}>
 
         <Form.Group controllid="naziv">
@@ -92,7 +92,7 @@ export default function ProivodiPromjena(){
                 </Col>
                 <Col xs={6} sm={12} md={9} lg={10} xl={6} xxl={6}>
                     <Button variant="success" type="submit" className="siroko">
-                        Dodaj proizvod
+                        Promjeni proizvod
                     </Button>
                     
                 </Col>
