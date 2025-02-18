@@ -3,7 +3,11 @@ export const RouteNames={
 
     PROIZVOD_PREGLED: '/proizvodi',
     PROIZVOD_NOVI: '/proizvodi/dodaj',
-    PROIZVOD_PROMJENA: '/proizvodi/:sifra'
+    PROIZVOD_PROMJENA: '/proizvodi/:sifra',
+
+    VRSTA_PREGLED: '/vrste',
+    VRSTA_NOVI: '/vrste/dodaj',
+    VRSTA_PROMJENA: '/vrste/:sifra'
 }
 
 
