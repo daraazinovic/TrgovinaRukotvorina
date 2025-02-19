@@ -42,7 +42,7 @@ namespace Backend.Controllers
             {
                 try
                 {
-                    var s = _context.Vrste.Find(sifra);
+                var s = _context.Vrste.Find(sifra);
                     if (s == null)
                     {
                         return NotFound();
@@ -57,13 +57,13 @@ namespace Backend.Controllers
 
 
             [HttpPost]
-            public IActionResult Post(Vrsta vrsta)
+            public IActionResult Post(Vrsta vrste)
             {
                 try
                 {
-                    _context.Vrste.Add(vrsta);
+                    _context.Vrste.Add(vrste);
                     _context.SaveChanges();
-                    return StatusCode(StatusCodes.Status201Created, vrsta);
+                    return StatusCode(StatusCodes.Status201Created, vrste);
                 }
                 catch (Exception e)
                 {
