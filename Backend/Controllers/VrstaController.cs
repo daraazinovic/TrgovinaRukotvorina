@@ -1,129 +1,161 @@
 ﻿using Backend.Data;
 using Backend.Models;
+using Backend.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class VrstaController : ControllerBase
+    public class VrstaController(BackendContext context, IMapper mapper) : BackendController(context, mapper): BackendController(context, mapper)
     {
-      
-       
-        
-            private readonly BackendContext _context;
 
-            public VrstaController(BackendContext context)
+
+
+
+        // RUTE
+        [HttpGet]
+        public ActionResult<List<VrstaDTORead>> Get()
+        {
+            if (!ModelState.IsValid)
             {
-                _context = context;
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                return Ok(_mapper.Map<List<MaterijalDTORead>>(_context.Materijali));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
             }
 
-            [HttpGet]
-            public IActionResult Get()
+        }
+
+
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public ActionResult<VrstaDTORead> GetBySifra(int sifra)
+        {
+            if (!ModelState.IsValid)
             {
+                return BadRequest(new { poruka = ModelState });
+            }
+            Vrsta? e;
+            try
+            {
+                e = _context.Vrsta.Find(sifra);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+            if (e == null)
+            {
+                return NotFound(new { poruka = "Vrsta ne postoji u bazi" });
+            }
+
+            return Ok(_mapper.Map<VrstaDTORead>(e));
+        }
+
+        [HttpPost]
+        public IActionResult Post(VrstaDTOInsertUpdate dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                var e = _mapper.Map<Vrsta>(dto);
+                _context.Vrste.Add(e);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<VrstaDTORead>(e));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+
+
+
+        }
+
+        [HttpPut]
+        [Route("{sifra:int}")]
+        [Produces("application/json")]
+        public IActionResult Put(int sifra, VrstaDTOInsertUpdate dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                Vrsta? e;
                 try
                 {
-                    return Ok(_context.Vrste);
+                    e = _context.Vrste.Find(sifra);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    return BadRequest(e);
+                    return BadRequest(new { poruka = ex.Message });
                 }
+                if (e == null)
+                {
+                    return NotFound(new { poruka = "Vrsta ne postoji u bazi" });
+                }
+                e = _mapper.Map(dto, e);
+
+                _context.Vrste.Update(e);
+                _context.SaveChanges();
+
+                return Ok(new { poruka = "Uspješno promjenjeno" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
             }
 
+        }
 
-
-            [HttpGet]
-
-            [Route("{sifra:int}")]
-
-            public IActionResult GetBySifra(int sifra)
+        [HttpDelete]
+        [Route("{sifra:int}")]
+        [Produces("application/json")]
+        public IActionResult Delete(int sifra)
+        {
+            if (!ModelState.IsValid)
             {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                Vrsta? e;
                 try
                 {
-                var s = _context.Vrste.Find(sifra);
-                    if (s == null)
-                    {
-                        return NotFound();
-                    }
-                    return Ok(s);
+                    e = _context.Vrste.Find(sifra);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    return BadRequest(e);
+                    return BadRequest(new { poruka = ex.Message });
                 }
+                if (e == null)
+                {
+                    return NotFound("Vrsta ne postoji u bazi");
+                }
+                _context.Vrste.Remove(e);
+                _context.SaveChanges();
+                return Ok(new { poruka = "Uspješno obrisano" });
             }
-
-
-            [HttpPost]
-            public IActionResult Post(Vrsta vrste)
+            catch (Exception ex)
             {
-                try
-                {
-                    _context.Vrste.Add(vrste);
-                    _context.SaveChanges();
-                    return StatusCode(StatusCodes.Status201Created, vrste);
-                }
-                catch (Exception e)
-                {
-                    return BadRequest(e);
-                }
+                return BadRequest(new { poruka = ex.Message });
             }
+        }
 
 
-            [HttpPut]
-            [Route("{sifra:int}")]
-            [Produces("application/json")]
-            public IActionResult Put(int sifra, Vrsta vrsta)
-            {
-                try
-                {
-
-                    var s = _context.Vrste.Find(sifra);
-
-                    if (s == null)
-                    {
-                        return NotFound();
-                    }
-
-                    // Rucno mapiranje, kasnije automapper
-                    s.Sastav = vrsta.Sastav;
-                   
 
 
-                    _context.Vrste.Update(s);
-                    _context.SaveChanges();
-                    return Ok(new { poruka = "Uspješno promijenjeno" });
-                }
-                catch (Exception e)
-                {
-                    return BadRequest(e);
-                }
-            }
-
-
-            [HttpDelete]
-            [Route("{sifra:int}")]
-            public IActionResult Delete(int sifra)
-            {
-                try
-                {
-                    var s = _context.Vrste.Find(sifra);
-                    if (s == null)
-                    {
-                        return NotFound();
-                    }
-                    _context.Vrste.Remove(s);
-                    _context.SaveChanges();
-                    return Ok(new { poruka = "Uspješno obrisano" });
-                }
-                catch (Exception e)
-                {
-                    return BadRequest(e);
-                }
-            }
-
-        
     }
-}

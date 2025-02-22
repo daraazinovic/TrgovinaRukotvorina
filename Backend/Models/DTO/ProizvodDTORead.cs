@@ -3,7 +3,7 @@
 namespace Backend.Models.DTO
 
 {
-    public record PolaznikDTORead(
+    public record ProizvodDTORead(
         int Sifra,
         string Naziv,
         string IzradujeSeOd,

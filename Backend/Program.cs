@@ -1,5 +1,6 @@
 
 using Backend.Data;
+using Backend.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -47,6 +48,8 @@ app.UseSwaggerUI(o =>
     o.ConfigObject.AdditionalItems.Add("requestSnippetsEnabled", true);
 });
 
+
+builder.Services.AddAutoMapper(typeof(BackendMappingProfile));
 
 
 

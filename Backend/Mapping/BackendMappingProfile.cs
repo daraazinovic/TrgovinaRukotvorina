@@ -1,19 +1,30 @@
-﻿using Backend.Models;
+﻿using AutoMapper;
+using Backend.Models;
+using Backend.Models.DTO;
 
 namespace Backend.Mapping
 {
-    public class BackendMappingProfile : Profile
+    public class BackendMappingProfile :Profile
     {
 
         public BackendMappingProfile()
         {
             CreateMap<Proizvod, ProizvodDTORead>();
-            CreateMap<ProizvodDTOCreate, Proizvod>();
+            CreateMap<Proizvod, ProizvodDTOInsertUpdate>();
+
+            CreateMap<Vrsta, VrstaDTORead>();
+            CreateMap<Vrsta, VrstaDTOInsertUpdate>();
 
             CreateMap<Materijal, MaterijalDTORead>()
                 .ForCtorParam(
-                "Sastav",
-                opt => opt.MapFrom(src => src.)
+                "SastavNaziv",
+                opt => opt.MapFrom(src => src.Vrsta.Sastav)
+                );
+
+
         }
+        
+        
+           
     }
 }

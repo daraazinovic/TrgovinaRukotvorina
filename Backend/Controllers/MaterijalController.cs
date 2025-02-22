@@ -1,31 +1,37 @@
-﻿using Backend.Data;
+﻿using AutoMapper;
+using Backend.Data;
 using Backend.Models;
+using Backend.Models.DTO;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Linq.Expressions;
 
 namespace Backend.Controllers
 {
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class MaterijalController : ControllerBase
+    public class MaterijalController(BackendContext context, IMapper mapper) : BackendController(context, mapper)
     {
-        private readonly BackendContext _context;
 
-        public  MaterijalController(BackendContext context)
-        {
-            _context = context;
-        }
 
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<List> MaterijalDTORead> Get()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
             try
             {
-                return Ok(_context.Materijali);
+                return Ok(_mapper.Map<List<MaterijalDTORead>>)(_context.Materijali.Include(m => m.Vrsta)));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return BadRequest(e);
+                return BadRequest(new { poruka = ex.Message });
             }
         }
 
@@ -35,36 +41,46 @@ namespace Backend.Controllers
 
         [Route("{sifra:int}")]
 
-        public IActionResult GetBySifra(int sifra)
+        public ActionResult<MaterijalDTORead> GetBySifra(int sifra)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            Materijal? e;
             try
             {
-                var s = _context.Materijali.Find(sifra);
-                if (s == null)
-                {
-                    return NotFound();
-                }
-                return Ok(s);
+                e = _context.Materijali.Find(sifra);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return BadRequest(e);
+                return BadRequest(new { poruka = ex.Message });
             }
+            if (e == null)
+            {
+                return NotFound(new { poruka = "Materijal ne postoji u bazi" });
+            }
+            return Ok(_mapper.Map<MaterijalDTORead>(e));
         }
 
 
         [HttpPost]
-        public IActionResult Post(Materijal materijal)
+        public IActionResult Post(MaterijalDTOInsertUpdate dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
             try
             {
-                _context.Materijali.Add(materijal);
-                _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, materijal);
+                var e = _mapper.Map<Materijal>(dto);
+                _context.Materijali.Add(e);
+                _context - SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<MaterijalDTORead>(e));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return BadRequest(e);
+                return BadRequest(new { poruka = ex.Message });
             }
         }
 
@@ -72,54 +88,78 @@ namespace Backend.Controllers
         [HttpPut]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int sifra, Materijal materijal)
-        {
+        public IActionResult Put(int sifra, MaterijalDTOInsertUpdate dto) {
+            if (!ModelStateDictionary.IsValid)
+            {
+                return BadRequest(new poruka(ModelState));
+
+            }
             try
             {
-
-                var s = _context.Materijali.Find(sifra);
-
-                if (s == null)
+                Materijal? e;
+                try
                 {
-                    return NotFound();
+                    e = _context.Polaznici.Find(sifra);
+                }
+                catch (Exception ex)
+                {
+                        return BadRequest(new { poruka =ex.Message });
+                }
+                if (e == null)
+                {
+                    return NotFound(new { poruka = "Proizvod ne postoji u bazi"})
                 }
 
-                // Rucno mapiranje, kasnije automapper
-                s.Naziv = materijal.Naziv;
-                s.Vrsta = materijal.Vrsta;
-               
+                e = _mapper.Map(dto, e);
 
-                _context.Materijali.Update(s);
+                _context.Materijali.Update(e);
                 _context.SaveChanges();
-                return Ok(new { poruka = "Uspješno promijenjeno" });
-            }
-            catch (Exception e)
+
+                return Ok(new { poruka = "Uspješno promjenjeno" });
+                {
+                    catch (Exception ex)
             {
-                return BadRequest(e);
+                return BadRequest(new { poruka = ex.Message });
             }
-        }
+                }
+
 
 
         [HttpDelete]
         [Route("{sifra:int}")]
+        [Produces("application/json")]
         public IActionResult Delete(int sifra)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
             try
             {
-                var s = _context.Materijali.Find(sifra);
-                if (s == null)
+               Materijal? e;
+                try
                 {
-                    return NotFound();
+                    e = _context.Materijali.Find(sifra);
                 }
-                _context.Materijali.Remove(s);
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (e == null)
+                {
+                    return NotFound("Materijal ne postoji u bazi");
+                }
+                _context.Materijali.Remove(e);
                 _context.SaveChanges();
                 return Ok(new { poruka = "Uspješno obrisano" });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return BadRequest(e);
+                return BadRequest(new { poruka = ex.Message });
             }
         }
 
-    }    
+    }
+
+    internal record NewRecord(object Poruka);
 }
