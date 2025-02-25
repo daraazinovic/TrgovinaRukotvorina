@@ -19,12 +19,12 @@ namespace Backend.Data
         {
             modelBuilder.Entity<Materijal>().HasOne(m => m.Vrsta);
 
-            modelBuilder.Entity<Materijal>()
-                .HasMany(m => m.Proizvodi)
-                .WithMany(p => p.Materijali)
+            modelBuilder.Entity<Proizvod>()
+                .HasMany(m => m.Materijali)
+                .WithMany(p => p.Proizvodi)
                 .UsingEntity<Dictionary<string, string>>("sastavnice",
-                c => c.HasOne<Proizvod>().WithMany().HasForeignKey("proizvod"),
                 c => c.HasOne<Materijal>().WithMany().HasForeignKey("materijal"),
+                c => c.HasOne<Proizvod>().WithMany().HasForeignKey("proizvod"),
                 c => c.ToTable("sastavnice"));
         }
 

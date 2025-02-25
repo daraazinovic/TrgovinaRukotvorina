@@ -19,7 +19,7 @@ namespace Backend.Controllers
 
 
         [HttpGet]
-        public ActionResult<List> MaterijalDTORead> Get()
+        public ActionResult<List<MaterijalDTORead>> Get()
         {
             if (!ModelState.IsValid)
             {
@@ -27,7 +27,7 @@ namespace Backend.Controllers
             }
             try
             {
-                return Ok(_mapper.Map<List<MaterijalDTORead>>)(_context.Materijali.Include(m => m.Vrsta)));
+                return Ok(_mapper.Map<List<MaterijalDTORead>>(_context.Materijali.Include(m => m.Vrsta)));
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace Backend.Controllers
             {
                 var e = _mapper.Map<Materijal>(dto);
                 _context.Materijali.Add(e);
-                _context - SaveChanges();
+                _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, _mapper.Map<MaterijalDTORead>(e));
             }
             catch (Exception ex)
@@ -89,9 +89,9 @@ namespace Backend.Controllers
         [Route("{sifra:int}")]
         [Produces("application/json")]
         public IActionResult Put(int sifra, MaterijalDTOInsertUpdate dto) {
-            if (!ModelStateDictionary.IsValid)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(new poruka(ModelState));
+                return BadRequest(ModelState);
 
             }
             try
@@ -99,15 +99,15 @@ namespace Backend.Controllers
                 Materijal? e;
                 try
                 {
-                    e = _context.Polaznici.Find(sifra);
+                    e = _context.Materijali.Find(sifra);
                 }
                 catch (Exception ex)
                 {
-                        return BadRequest(new { poruka =ex.Message });
+                    return BadRequest(new { poruka = ex.Message });
                 }
                 if (e == null)
                 {
-                    return NotFound(new { poruka = "Proizvod ne postoji u bazi"})
+                    return NotFound(new { poruka = "Proizvod ne postoji u bazi" });
                 }
 
                 e = _mapper.Map(dto, e);
@@ -116,8 +116,8 @@ namespace Backend.Controllers
                 _context.SaveChanges();
 
                 return Ok(new { poruka = "Uspješno promjenjeno" });
-                {
-                    catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(new { poruka = ex.Message });
             }

@@ -32,6 +32,8 @@ builder.Services.AddCors(o=>
 });
 
 
+builder.Services.AddAutoMapper(typeof(BackendMappingProfile));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,7 +51,6 @@ app.UseSwaggerUI(o =>
 });
 
 
-builder.Services.AddAutoMapper(typeof(BackendMappingProfile));
 
 
 

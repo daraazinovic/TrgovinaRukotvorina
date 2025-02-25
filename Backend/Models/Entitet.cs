@@ -2,7 +2,7 @@
 
 namespace Backend.Models
 {
-    public class Entitet
+    public abstract class Entitet
     {
         [Key]
         public int Sifra { get; set; }
