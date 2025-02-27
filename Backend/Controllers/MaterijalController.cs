@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Backend.Controllers
 {
@@ -71,9 +72,25 @@ namespace Backend.Controllers
             {
                 return BadRequest(new { poruka = ModelState });
             }
+
+            Vrsta? es;
+            try
+            {
+                es = _context.Vrste.Find(dto.VrstaSifra);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+            if (es == null)
+            {
+                return NotFound(new { poruka = "Vrsta u materijalima ne postoji u bazi" });
+            }
+
             try
             {
                 var e = _mapper.Map<Materijal>(dto);
+                e.Vrsta = es;
                 _context.Materijali.Add(e);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, _mapper.Map<MaterijalDTORead>(e));
@@ -161,5 +178,5 @@ namespace Backend.Controllers
 
     }
 
-    internal record NewRecord(object Poruka);
+    
 }

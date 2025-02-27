@@ -7,7 +7,7 @@ namespace Backend.Models.DTO
         int Sifra,
         string Naziv,
         string IzradujeSeOd,
-        int CijenaProizvoda,
+        int Cijena,
         string Namjena
         
     );
