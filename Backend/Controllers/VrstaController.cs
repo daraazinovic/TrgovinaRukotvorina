@@ -12,10 +12,8 @@ namespace Backend.Controllers
     [Route("api/v1/[controller]")]
     public class VrstaController(BackendContext context, IMapper mapper) : BackendController(context, mapper)
     {
-        [ApiController]
-        [Route("api/v1/[controller]")]
-        public class VrstaControlller(BackendContext context, IMapper mapper) : BackendController(context, mapper)
-        {
+        
+        
 
 
             [HttpGet]
@@ -169,7 +167,7 @@ namespace Backend.Controllers
 
 
 
-        }
+        
 
 
     }
