@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 export default function VrstePromjena(){
 
     const navigate = useNavigate();
-    const [proizvod,setVrsta] =useState({});
+    const [vrsta,setVrsta] =useState({});
     const routeParams = useParams();
 
-    async function  dohvatiVrstu(){
+    async function  dohvatiVrste(){
         const odgovor = await VrstaService.getBySifra(routeParams.sifra)
         setVrsta(odgovor)
     }

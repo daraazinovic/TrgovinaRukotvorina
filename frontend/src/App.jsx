@@ -28,6 +28,11 @@ function App() {
           <Route path={RouteNames.VRSTA_PREGLED} element={<VrstaPregled />} />
           <Route path={RouteNames.VRSTA_NOVI} element={<VrsteDodaj />} />
           <Route path={RouteNames.VRSTA_PROMJENA} element={<VrstePromjena />} />
+
+
+          <Route path={RouteNames.MATERIJAL_PREGLED} element={<MaterijalPregled />} />
+          <Route path={RouteNames.MATERIJAL_NOVI} element={<MaterijaliDodaj />} />
+          <Route path={RouteNames.MATERIJAL_PROMJENA} element={<MaterijaliPromjena />} />
         </Routes>
 
         <hr />

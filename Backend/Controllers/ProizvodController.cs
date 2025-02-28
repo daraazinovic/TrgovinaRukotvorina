@@ -164,30 +164,8 @@ namespace Backend.Controllers
 
 
 
-        [HttpGet]
-        [Route("Materijali/{sifraProizvoda:int}")]
-        public ActionResult<List<MaterijalDTORead>> GetMaterijali(int sifraProizvoda)
-        {
-            if (!ModelState.IsValid || sifraProizvoda <= 0)
-            {
-                return BadRequest(ModelState);
-            }
-            try
-            {
-                var p = _context.Proizvodi
-                    .Include(i => i.Materijali).FirstOrDefault(x => x.Sifra == sifraProizvoda);
-                if (p == null)
-                {
-                    return BadRequest("Ne postoji proizvod s šifrom " + sifraProizvoda + " u bazi");
-                }
-
-                return Ok(_mapper.Map<List<MaterijalDTORead>>(p.Materijali));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { poruka = ex.Message });
-            }
-        }
+       
+        
     }
 }
 
