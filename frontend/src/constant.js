@@ -7,7 +7,11 @@ export const RouteNames={
 
     VRSTA_PREGLED: '/vrste',
     VRSTA_NOVI: '/vrste/dodaj',
-    VRSTA_PROMJENA: '/vrste/:sifra'
+    VRSTA_PROMJENA: '/vrste/:sifra',
+
+    MATERIJAL_PREGLED: '/materijali',
+    MATERIJAL_NOVI: '/materijali/dodaj',
+    MATERIJAL_PROMJENA: '/materijali/:sifra'
 }
 
 
