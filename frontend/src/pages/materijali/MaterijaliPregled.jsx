@@ -75,7 +75,7 @@ export default function MaterijaliPregled(){
                 {materijali && materijali.map((entitet,index)=>(
                     <tr key={index}>
                         <td>{entitet.naziv}</td>
-                        <td>{entitet.vrstaNaziv}</td>
+                        <td>{entitet.sastavNaziv}</td>
                         
                         <td className="sredina">
                                 <Button
