@@ -163,9 +163,127 @@ namespace Backend.Controllers
 
 
 
+        [HttpGet]
+        [Route("Materijali/{proizvodSifra:int}")]
+        public ActionResult<List<MaterijalDTORead>> GetMaterijali(int proizvodSifra)
+        {
+            if (!ModelState.IsValid || proizvodSifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var p = _context.Proizvodi
+                    .Include(i => i.Materijali).FirstOrDefault(x => x.Sifra == proizvodSifra);
+                if (p == null)
+                {
+                    return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
+                }
 
-       
-        
+                return Ok(_mapper.Map<List<MaterijalDTORead>>(p.Materijali));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+        }
+
+
+
+        [HttpPost]
+        [Route("{sifra:int}/dodaj/{proizvodSifra:int}")]
+        public IActionResult DodajProizvod(int sifra, int proizvodSifra)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (sifra <= 0 || proizvodSifra <= 0)
+            {
+                return BadRequest("Šifra materijala ili proizvoda nije dobra");
+            }
+            try
+            {
+                var materijal = _context.Materijali
+                    .Include(g => g.Proizvodi)
+                    .FirstOrDefault(g => g.Sifra == sifra);
+                if (materijal == null)
+                {
+                    return BadRequest("Ne postoji materijal s šifrom " + sifra + " u bazi");
+                }
+                var proizvod = _context.Proizvodi.Find(proizvodSifra);
+                if (proizvod == null)
+                {
+                    return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
+                }
+                materijal.Proizvodi.Add(proizvod);
+                _context.Materijali.Update(materijal);
+                _context.SaveChanges();
+                return Ok(new
+                {
+                    poruka = "Materijal " + materijal.Naziv + " dodan na proizvod "
+                 + proizvod.IzradujeSeOd
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                       StatusCodes.Status503ServiceUnavailable,
+                       ex.Message);
+            }
+
+        }
+
+
+
+
+        [HttpDelete]
+        [Route("{sifra:int}/obrisi/{proizvodSifra:int}")]
+        public IActionResult ObrisiProizvod(int sifra, int proizvodSifra)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (sifra <= 0 || proizvodSifra <= 0)
+            {
+                return BadRequest("Šifra materijala ili proizvoda nije dobra");
+            }
+            try
+            {
+                var materijal = _context.Materijali
+                    .Include(g => g.Proizvodi)
+                    .FirstOrDefault(g => g.Sifra == sifra);
+                if (materijal == null)
+                {
+                    return BadRequest("Ne postoji materijal s šifrom " + sifra + " u bazi");
+                }
+                var proizvod = _context.Proizvodi.Find(proizvodSifra);
+                if (proizvod == null)
+                {
+                    return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
+                }
+                materijal.Proizvodi.Remove(proizvod);
+                _context.Materijali.Update(materijal);
+                _context.SaveChanges();
+
+                return Ok(new
+                {
+                    poruka = "Matrijal " + materijal.Naziv + " obrisan iz proizvoda "
+                 + proizvod.IzradujeSeOd
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+
+            }
+        }
+
     }
 }
+       
+        
+    
+
 

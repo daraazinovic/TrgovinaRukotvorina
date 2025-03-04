@@ -8,72 +8,62 @@ import MaterijalService from "../../services/MaterijalService";
 export default function MaterijaliPromjena(){
 
     const navigate = useNavigate();
-  
     const routeParams = useParams();
-    
-
+  
     const [vrste, setVrste] = useState([]);
-  const [vrstaSifra, setVrstaSifra] = useState(0);
-
-  const [materijal, setMaterijal] = useState({});
-
-
-
-
-
-    async function dohvatiVrste() {
-        const odgovor = await VrstaService.get();
-       setVrste(odgovor.poruka);
-        }
-
-        async function dohvatiMaterijale() {
-            const odgovor = await Service.getBySifra(routeParams.sifra)
-            if(odgovor.greska){
-               
-                return;
-            }
-        }
-
-
-       
-    
-
-       
-      
-       setVrstaSifra(materijal.vrstaSifra);
-        
-}
-
-
-    async function promjena(e){
-        showLoading();
-         const odgovor = await Service.promjena(routeParams.sifra,e);
-        hideLoading();
-        if(odgovor.greska){
-          
-        
-            return;
-        }
-        navigate(RouteNames.MATERIJAL_PREGLED)
+    const [vrstaSifra, setVrstaSifra] = useState(0);
+  
+    const [materijal, setMaterijal] = useState({});
+  
+    async function dohvatiVrste(){
+      const odgovor = await VrstaService.get();
+      setVrste(odgovor.poruka);
     }
-
-    function odradiSubmit(e){ // e je event
-         e.preventDefault();  // nemoj odraditi zahtjev na server po standardnom načinu
-
-         const podaci = new FormData(e.target);
-
-         promjena(
-             {
-            naziv: podaci.get('naziv'),    
-            vrstaSifra: parseInt(vrstaSifra)
-           
-            }
-
-
-         
-    );
-
-         
+  
+    async function dohvatiMaterijale() {
+      const odgovor = await MaterijalService.getBySifra(routeParams.sifra);
+      if(odgovor.greska){
+        alert(odgovor.poruka);
+        return;
+    }
+      let materijal = odgovor.poruka;
+      setMaterijal(materijal);
+      setVrstaSifra(materijal.vrstaSifra); 
+    }
+  
+    async function dohvatiInicijalnePodatke() {
+      await dohvatiVrste();
+      await dohvatiMaterijale();
+    }
+  
+  
+    useEffect(()=>{
+      dohvatiInicijalnePodatke();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+  
+    async function promjena(e){
+      const odgovor = await Service.promjena(routeParams.sifra,e);
+      if(odgovor.greska){
+          alert(odgovor.poruka);
+          return;
+      }
+      navigate(RouteNames.MATERIJAL_PREGLED);
+  }
+  
+    function obradiSubmit(e) {
+      e.preventDefault();
+  
+      const podaci = new FormData(e.target);
+  
+  
+      promjena({
+        naziv: podaci.get('naziv'),
+        vrstaSifra: parseInt(vrstaSifra),
+       
+      });
+    }
+  
 
            
     
@@ -85,17 +75,17 @@ export default function MaterijaliPromjena(){
                     Promjena materijala
                 </div>
                 <div>
-                    <Form onSubmit={odradiSubmit}>
+                    <Form onSubmit={obradiSubmit}>
                         <Form.Group controlId="naziv">
                             <Form.Label>Naziv</Form.Label>
-                            <Form.Control type="text" name="naziv" required defaultValue={materijal?.naziv || ''} onChange={(e) => setMaterijal({ ...materijal, naziv: e.target.value })} />
+                            <Form.Control type="text" name="naziv" required defaultValue={materijal.naziv  } />
                         </Form.Group>
     
-                        <Form.Group className='mb-3' controlId='smjer'>
+                        <Form.Group className='mb-3' controlId='vrsta'>
                             <Form.Label>Vrsta</Form.Label>
                             <Form.Select
                                 value={vrstaSifra}
-                                onChange={(e) => { getVrstaSifra(e.target.value); }}
+                                onChange={(e) => { setVrstaSifra(e.target.value); }}
                             >
                                 {vrste && vrste.map((s, index) => (
                                     <option key={index} value={s.sifra}>

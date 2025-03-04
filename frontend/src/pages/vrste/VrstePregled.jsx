@@ -19,7 +19,7 @@ export default function VrstaPregled(){
     }
 
 
-    //hooks (kuka) se izvodi prilikom dolaska na stranicu Proizvodi
+    
     useEffect(()=>{
         dohvatiVrste()
     },[])

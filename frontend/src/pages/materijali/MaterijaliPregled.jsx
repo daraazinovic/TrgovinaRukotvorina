@@ -35,7 +35,7 @@ export default function MaterijaliPregled(){
 
         async function obrisiMaterijal(sifra) {
             
-            const odgovor = await Service.obrisi(sifra);
+            const odgovor = await MaterijalService.obrisi(sifra);
            
             //console.log(odgovor);
             if(odgovor.greska){

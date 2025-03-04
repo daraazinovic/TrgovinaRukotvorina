@@ -46,7 +46,7 @@ async function dodaj(Materijal) {
 
 }
     async function promjena(sifra,Materijal) {
-        return await HttpService.put('/Materijjal/' + sifra,Materijal)
+        return await HttpService.put('/Materijal/' + sifra,Materijal)
         .then((odgovor)=>{
             return {greska: false, poruka: odgovor.data}
         })
@@ -79,38 +79,6 @@ async function obrisi(sifra) {
 
 
 
-async function getVrste(sifra){
-    return await HttpService.get('/Materijal/Vrste/'+ sifra)
-    .then((odgovor)=>{
-        //console.table(odgovor.data);
-        return {greska: false, poruka: odgovor.data}
-    })
-    .catch((e)=>{return {greska: true, poruka: 'Problem kod dohvaćanja vrsti'}})
-}
-
-
-
-async function dodajVrstu(materijal,vrsta) {
-    return await HttpService.post('/Materijal/' + materijal + '/dodaj/'+vrsta)
-    .then((odgovor)=>{
-        return {greska: false, poruka: odgovor.data}
-    })
-    .catch((e)=>{
-                return {greska: true, poruka: 'Vrsta se ne može dodati u materijal'}
-    })
-}
-
-
-
-async function obrisiVrstu (materijal,vrsta) {
-    return await HttpService.delete('/Materijal/' + materijal + '/obrisi/'+vrsta)
-    .then((odgovor)=>{
-        return {greska: false, poruka: odgovor.data}
-    })
-    .catch((e)=>{
-                return {greska: true, poruka: 'Vrsta se ne može obrisati iz materijala'}
-    })
-}
 
 
 
@@ -119,11 +87,9 @@ export default{
     getBySifra,
     dodaj,
     promjena,
-    obrisi,
+    obrisi
 
 
-    getVrste,
-    dodajVrstu,
-    obrisiVrstu
+    
 }
     
