@@ -46,7 +46,7 @@ async function brisanjeVrste(sifra) {
         <Link
         to={RouteNames.VRSTA_NOVI}
         className="btn btn-success"
-        >Dodaj novi proizvod</Link>
+        >Dodaj novu vrstu</Link>
         <Table striped bordered hover responsive>
             <thead>
                 <tr>

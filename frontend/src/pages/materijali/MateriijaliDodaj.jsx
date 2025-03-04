@@ -10,7 +10,7 @@ import useError from "../../hooks/useError";
 
 export default function MaterijaliDodaj() {
     const navigate = useNavigate();
-   const { showLoading, hideLoading } = useLoading()
+   
     
   
     const [vrste, setVrste] = useState([]);
@@ -21,18 +21,22 @@ export default function MaterijaliDodaj() {
     
   
     async function dohvatiVrste(){
-      showLoading();
+    
       const odgovor = await VrstaService.get();
-      hideLoading();
+  
       setVrste(odgovor.poruka);
-      setVrstaSifra(odgovor.poruka[0].sifra);
+      setVrstaSifra(odgovor.poruka.vrstaSifra);
     }
 
 
-    useEffect(()=>{
-        dohvatiVrste();
-    },[]);
 
+    dohvatiVrste({
+        vrstaSifra: parseInt(vrstaSifra)
+
+    });
+
+
+    
 
 
 
@@ -41,9 +45,9 @@ export default function MaterijaliDodaj() {
   
     
       async function dodaj(e) {
-        showLoading();
-        const odgovor = await Service.dodaj(e);
-        hideLoading();
+       
+        const odgovor = await MaterijalService.dodaj(e);
+      
         if(odgovor.greska){
           prikaziError(odgovor.poruka);
           return;
@@ -107,7 +111,7 @@ export default function MaterijaliDodaj() {
                 </Col>
                 <Col xs={6} sm={12} md={9} lg={10} xl={6} xxl={6}>
                     <Button variant="success" type="submit" className="siroko">
-                        Dodaj vrstu
+                        Dodaj materijal
                     </Button>
                     
                 </Col>

@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 
 export default function useLoading() {
-    const context = useContext(LoadingContext);
+    const context = useContext();
 
 
     if (!context) {

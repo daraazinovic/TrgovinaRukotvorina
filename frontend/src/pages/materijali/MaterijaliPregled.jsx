@@ -34,9 +34,9 @@ export default function MaterijaliPregled(){
 
 
         async function obrisiMaterijal(sifra) {
-            showLoading();
+            
             const odgovor = await Service.obrisi(sifra);
-            hideLoading();
+           
             //console.log(odgovor);
             if(odgovor.greska){
                 prikaziError(odgovor.poruka);
