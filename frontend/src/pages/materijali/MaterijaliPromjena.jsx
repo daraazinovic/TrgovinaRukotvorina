@@ -15,10 +15,16 @@ export default function MaterijaliPromjena(){
   
     const [materijal, setMaterijal] = useState({});
   
-    async function dohvatiVrste(){
-      const odgovor = await VrstaService.get();
-      setVrste(odgovor.poruka);
-    }
+  
+      async function dohvatiVrste(){
+      
+        const odgovor = await VrstaService.get();
+    
+        setVrste(odgovor);
+        setVrstaSifra(odgovor.sifra);
+      }
+  
+ 
   
     async function dohvatiMaterijale() {
       const odgovor = await MaterijalService.getBySifra(routeParams.sifra);
@@ -43,7 +49,7 @@ export default function MaterijaliPromjena(){
     },[]);
   
     async function promjena(e){
-      const odgovor = await Service.promjena(routeParams.sifra,e);
+      const odgovor = await MaterijalService.promjena(routeParams.sifra,e);
       if(odgovor.greska){
           alert(odgovor.poruka);
           return;
@@ -59,7 +65,7 @@ export default function MaterijaliPromjena(){
   
       promjena({
         naziv: podaci.get('naziv'),
-        vrstaSifra: parseInt(vrstaSifra),
+        vrstaSifra: vrstaSifra
        
       });
     }

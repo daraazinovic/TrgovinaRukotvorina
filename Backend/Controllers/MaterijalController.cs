@@ -42,7 +42,7 @@ namespace Backend.Controllers
 
         [Route("{sifra:int}")]
 
-        public ActionResult<MaterijalDTORead> GetBySifra(int sifra)
+        public ActionResult<MaterijalDTOInsertUpdate> GetBySifra(int sifra)
         {
             if (!ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace Backend.Controllers
             Materijal? e;
             try
             {
-                e = _context.Materijali.Find(sifra);
+                e = _context.Materijali.Include(m => m.Vrsta).FirstOrDefault(m => m.Sifra == sifra);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace Backend.Controllers
             {
                 return NotFound(new { poruka = "Materijal ne postoji u bazi" });
             }
-            return Ok(_mapper.Map<MaterijalDTORead>(e));
+            return Ok(_mapper.Map<MaterijalDTOInsertUpdate>(e));
         }
 
 
@@ -128,8 +128,22 @@ namespace Backend.Controllers
                     return NotFound(new { poruka = "Proizvod ne postoji u bazi" });
                 }
 
-                e = _mapper.Map(dto, e);
+                Vrsta? es;
+                try
+                {
+                    es = _context.Vrste.Find(dto.VrstaSifra);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (es == null)
+                {
+                    return NotFound(new { poruka = "Vrsta ne postoji u bazi" });
+                }
 
+                e = _mapper.Map(dto, e);
+                e.Vrsta = es;
                 _context.Materijali.Update(e);
                 _context.SaveChanges();
 

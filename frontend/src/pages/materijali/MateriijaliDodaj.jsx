@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RouteNames } from "../../constant";
 import VrstaService from "../../services/VrstaService";
 import MaterijalService from "../../services/MaterijalService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useLoading from "../../hooks/useLoading";
 import useError from "../../hooks/useError";
 
@@ -24,20 +24,13 @@ export default function MaterijaliDodaj() {
     
       const odgovor = await VrstaService.get();
   
-      setVrste(odgovor.poruka);
-      setVrstaSifra(odgovor.poruka.vrstaSifra);
+      setVrste(odgovor);
+      setVrstaSifra(odgovor.sifra);
     }
 
-
-
-    dohvatiVrste({
-        vrstaSifra: parseInt(vrstaSifra)
-
-    });
-
-
-    
-
+  useEffect(()=>{
+    dohvatiVrste()
+        },[])
 
 
    
@@ -63,7 +56,7 @@ export default function MaterijaliDodaj() {
     
         dodaj({
           naziv: podaci.get('naziv'),
-          vrstaSifra: parseInt(vrstaSifra)
+          vrstaSifra: vrstaSifra
          
         });
       }
