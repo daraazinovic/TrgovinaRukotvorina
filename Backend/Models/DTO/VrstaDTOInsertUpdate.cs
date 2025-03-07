@@ -4,7 +4,7 @@ namespace Backend.Models.DTO
 {
     public record VrstaDTOInsertUpdate(
         [Required(ErrorMessage = "Naziv obavezno")]
-        string Naziv
+        string Sastav
 
 
         );
