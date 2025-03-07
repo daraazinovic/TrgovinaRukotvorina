@@ -21,7 +21,6 @@ export default function MaterijaliPromjena(){
         const odgovor = await VrstaService.get();
     
         setVrste(odgovor);
-        setVrstaSifra(odgovor.sifra);
       }
   
  
