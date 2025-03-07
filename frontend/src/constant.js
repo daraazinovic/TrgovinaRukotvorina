@@ -16,4 +16,4 @@ export const RouteNames={
 
 
 
-export const BACKEND_URL='https://darko0210-001-site1.otempurl.com/api/v1';
+export const BACKEND_URL='https://localhost:7001/api/v1'
