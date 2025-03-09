@@ -14,6 +14,7 @@ import VrstePromjena from './pages/vrste/VrstePromjena'
 import MaterijalPregled from './pages/materijali/MaterijaliPregled'
 import MaterijaliDodaj from './pages/materijali/MateriijaliDodaj'
 import MaterijaliPromjena from './pages/materijali/MaterijaliPromjena'
+import EraDijagram from './pages/EraDijagram'
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
           <Route path={RouteNames.MATERIJAL_PREGLED} element={<MaterijalPregled />} />
           <Route path={RouteNames.MATERIJAL_NOVI} element={<MaterijaliDodaj />} />
           <Route path={RouteNames.MATERIJAL_PROMJENA} element={<MaterijaliPromjena />} />
+
+          <Route path={RouteNames.ERA} element={<EraDijagram />} />
 
 
           

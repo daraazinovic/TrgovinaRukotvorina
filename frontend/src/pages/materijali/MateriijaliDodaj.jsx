@@ -42,7 +42,7 @@ export default function MaterijaliDodaj() {
         const odgovor = await MaterijalService.dodaj(e);
       
         if(odgovor.greska){
-          prikaziError(odgovor.poruka);
+          
           return;
         }
         navigate(RouteNames.MATERIJAL_PREGLED);

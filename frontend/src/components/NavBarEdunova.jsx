@@ -11,37 +11,34 @@ export default function NavBarEdunova(){
 
     const navigate = useNavigate();
 
-    return(
+    return (
         <>
-        <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container>
                     <Navbar.Brand
-                    className='ruka' 
-                    onClick={()=>navigate(RouteNames.HOME)}
+                        className='ruka'
+                        onClick={() => navigate(RouteNames.HOME)}
                     >Trgovina Rukotvorina</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        
-                        <NavDropdown title="Programi" id="basic-nav-dropdown">
-                        <NavDropdown.Item 
-                        onClick={()=>navigate(RouteNames.PROIZVOD_PREGLED)}
-                        >Proizvodi</NavDropdown.Item>
-                          <NavDropdown.Item 
-                         onClick={()=>navigate(RouteNames.VRSTA_PREGLED)}
-                         >Vrste</NavDropdown.Item>
-                         <NavDropdown.Item
-                          onClick={()=>navigate(RouteNames.MATERIJAL_PREGLED)}
-                         >Materijali</NavDropdown.Item>
-                         
-                       
-                        </NavDropdown>
-                        <Nav.Link href ='https://darko0210-001-site1.otempurl.com/swagger' target='_blank'>Swagger</Nav.Link>
-                </Nav>
-                </Navbar.Collapse>
-            </Container>
+                        <Nav className="me-auto">
+                            <NavDropdown title="Programi" id="basic-nav-dropdown">
+                                <NavDropdown.Item
+                                    onClick={() => navigate(RouteNames.PROIZVOD_PREGLED)}
+                                >Proizvodi</NavDropdown.Item>
+                                <NavDropdown.Item
+                                    onClick={() => navigate(RouteNames.VRSTA_PREGLED)}
+                                >Vrste</NavDropdown.Item>
+                                <NavDropdown.Item
+                                    onClick={() => navigate(RouteNames.MATERIJAL_PREGLED)}
+                                >Materijali</NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Link onClick={() => navigate(RouteNames.ERA)}>Era dijagram</Nav.Link>
+                            <Nav.Link href='https://darko0210-001-site1.otempurl.com/swagger' target='_blank'>Swagger</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
             </Navbar>
-    </>
-)
-
+        </>
+    );
 }
