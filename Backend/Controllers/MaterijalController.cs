@@ -125,7 +125,7 @@ namespace Backend.Controllers
                 }
                 if (e == null)
                 {
-                    return NotFound(new { poruka = "Proizvod ne postoji u bazi" });
+                    return NotFound(new { poruka = "Materijal ne postoji u bazi" });
                 }
 
                 Vrsta? es;
