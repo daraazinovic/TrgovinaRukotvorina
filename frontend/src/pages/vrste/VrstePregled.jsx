@@ -51,6 +51,7 @@ async function brisanjeVrste(sifra) {
             <thead>
                 <tr>
                     <th>Sastav</th>
+                    <th>Akcija</th>
                    
                 
                 </tr>
@@ -61,6 +62,9 @@ async function brisanjeVrste(sifra) {
                     <tr key={index}>
                         <td>
                             {vrsta.sastav}
+                            
+                            
+                            
                         </td>
                       
                 

@@ -1,5 +1,7 @@
+
+
 body {
-    background-image: url('src/public/pozadina.jpg'); /* Putanja do pozadinske slike */
+    background-image: url('src/assets/pozadina.jpg'); /* Putanja do pozadinske slike */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

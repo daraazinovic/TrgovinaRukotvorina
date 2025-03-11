@@ -68,7 +68,8 @@ export default function MaterijaliPregled(){
             <thead>
                 <tr>
                     <th>Naziv</th>
-                    <th>Vrsta</th>    
+                    <th>Vrsta</th> 
+                    <th>Akcija</th>   
                 </tr>
             </thead>
             <tbody>

@@ -5,6 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '../constant';
 import logo from '../assets/logo.jpg'
+import pozadina from '../assets/pozadina.jpg'
 
 
 import React, { memo, useCallback, useState } from 'react';
@@ -22,53 +23,87 @@ const rotate = keyframes`
   }
 `;
 
+
+
 const StyledNavbar = styled(Navbar)`
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #e0f7fa; /* Svjetlo plava pozadina */
-  padding: 15px 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 1.00); // Jača sjena
+  border-bottom: 3px solid #1976d2; // Tamnija plava linija na dnu
+  background: linear-gradient(to right, #1976d2, #42a5f5); // Gradijent plave boje
+  color: white; // Bijeli tekst
+  
+  padding: 25px 0; // Veći padding
+  position: sticky; // Fiksna pozicija
+  background-image: url(${pozadina}); // Postavljanje pozadinske slike
+  background-size: cover; // Pokriva cijelu površinu
+  background-repeat: no-repeat; // Ne ponavlja sliku
+  background-position: center; // Centrirana slika
+  position: sticky; // Postavljanje pozicije na sticky
+  top: 0; // Postavljanje udaljenosti od vrha
+  z-index: 100; // Osiguravanje da je Navbar iznad ostalih elemenata
+  
 `;
 
 const StyledNavLink = styled(Nav.Link)`
-  transition: color 0.3s ease, transform 0.3s ease;
-  font-weight: 500;
-  color: #333; /* Tamniji tekst */
-  padding: 8px 12px;
-  margin-right: 10px;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); // Istaknuta sjena
+  transition: background-color 0.3s ease, transform 0.3s ease;
   &:hover {
-    color: #007bff; /* Plava boja pri hoveru */
+    background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
   }
 `;
 
 const StyledNavDropdown = styled(NavDropdown)`
-  font-weight: 500;
-  color: #333;
-  margin-right: 10px;
+  color: white;
+  margin-right: 12px;
+  .nav-link {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); // Istaknuta sjena
+  }
+  .dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  .dropdown-item {
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
 `;
+
 
 const StyledNavDropdownItem = styled(NavDropdown.Item)`
   transition: background-color 0.3s ease;
   padding: 8px 12px;
   &:hover {
-    background-color: #b3e5fc; /* Svjetlo plava boja pri hoveru */
+    background-color: #b3e5fc;
   }
 `;
 
 const StyledNavbarBrand = styled(Navbar.Brand)`
-  font-weight: 600;
-  cursor: pointer;
+  font-weight: 700;
+  color: white;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); // Istaknuta sjena
   transition: color 0.3s ease;
-  color: #333;
   &:hover {
-    color: #007bff;
+    color: #cce0ff;
   }
 `;
 
 const StyledLogo = styled.img`
   transition: transform 0.3s ease;
-  height: 70px; /* Prilagođena visina logotipa */
-  margin-right: 40px; /* Dodana margina desno */
+  height: 70px;
+  margin-right: 40px;
   &:hover {
     animation: ${rotate} 2s linear infinite;
   }
