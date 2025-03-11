@@ -1,0 +1,8 @@
+body {
+    background-image: url('src/public/pozadina.jpg'); /* Putanja do pozadinske slike */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh; /* Osigurava da pozadina pokriva cijelu visinu ekrana */
+    margin: 0; /* Uklanja defaultne margine */
+  }
