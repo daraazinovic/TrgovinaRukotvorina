@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '../constant';
+import logo from '../assets/logo.jpg'
 
 
 import React, { memo, useCallback, useState } from 'react';
@@ -89,7 +90,7 @@ function NavBarEdunova() {
       <Container>
         <StyledNavbarBrand onClick={() => handleNavigate(RouteNames.HOME)}>
           <StyledLogo
-            src="/src/public/logo.jpg"
+            src={logo}
             alt="Logo Trgovine Rukotvorina"
             className="d-inline-block align-top"
           />
